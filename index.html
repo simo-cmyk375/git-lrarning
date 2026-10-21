@@ -1,0 +1,434 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git Master | Learn Git</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 25px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #30363d;
+    }
+
+    .logo {
+      color: #ff7043;
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    nav a {
+      color: #c9d1d9;
+      text-decoration: none;
+      margin-left: 20px;
+    }
+
+    nav a:hover {
+      color: #ff7043;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 80px 20px;
+      background: radial-gradient(
+        circle at top,
+        #29203c,
+        #0d1117 65%
+      );
+    }
+
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 60px);
+      margin-bottom: 15px;
+    }
+
+    .hero h1 span {
+      color: #ff7043;
+    }
+
+    .hero p {
+      color: #9da7b3;
+      max-width: 550px;
+      margin: 0 auto 25px;
+    }
+
+    button {
+      background: #ff7043;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    button:hover {
+      background: #e85d30;
+    }
+
+    .section {
+      max-width: 1050px;
+      padding: 45px 20px;
+      margin: auto;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(
+        auto-fit, minmax(220px, 1fr)
+      );
+      gap: 18px;
+    }
+
+    .card {
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      padding: 22px;
+      transition: 0.25s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: #ff7043;
+    }
+
+    .card h3 {
+      color: #ff7043;
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      color: #a9b3be;
+      margin-bottom: 15px;
+    }
+
+    code {
+      display: block;
+      background: #090d12;
+      color: #7ee787;
+      padding: 12px;
+      border-radius: 7px;
+      overflow-wrap: anywhere;
+      margin-bottom: 12px;
+    }
+
+    .small-btn {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .terminal {
+      background: #090d12;
+      padding: 22px;
+      border-radius: 12px;
+      border: 1px solid #30363d;
+    }
+
+    .terminal p {
+      color: #7ee787;
+      margin-bottom: 12px;
+    }
+
+    .terminal input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #30363d;
+      background: #161b22;
+      color: white;
+      border-radius: 6px;
+      margin: 10px 0;
+    }
+
+    #output {
+      color: #d2a8ff;
+      min-height: 28px;
+    }
+
+    .progress-bg {
+      background: #30363d;
+      height: 10px;
+      border-radius: 20px;
+      margin: 15px 0;
+      overflow: hidden;
+    }
+
+    #progress {
+      background: #ff7043;
+      width: 0%;
+      height: 100%;
+      transition: 0.3s;
+    }
+
+    .lesson {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid #30363d;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px;
+      color: #8b949e;
+      border-top: 1px solid #30363d;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">⚡ GIT MASTER</div>
+    <nav>
+      <a href="#commands">Commands</a>
+      <a href="#practice">Practice</a>
+      <a href="#progress-section">Progress</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Master <span>Git</span> Like a Pro</h1>
+    <p>
+      Learn version control, manage your code,
+      and become a better developer one commit at a time.
+    </p>
+    <button onclick="goTo('commands')">
+      Start Learning →
+    </button>
+  </section>
+
+  <section class="section" id="commands">
+    <h2>🚀 Essential Git Commands</h2>
+
+    <div class="cards" id="commandCards"></div>
+  </section>
+
+  <section class="section" id="practice">
+    <h2>💻 Git Command Simulator</h2>
+    <p style="color:#9da7b3; margin-bottom:18px">
+      Try a command below. This is a simulator, not a real terminal.
+    </p>
+
+    <div class="terminal">
+      <p>student@ git-learning:~$</p>
+
+      <input
+        id="commandInput"
+        placeholder="Type: git status"
+        onkeydown="if(event.key==='Enter') runCommand()"
+      >
+
+      <button onclick="runCommand()">
+        Run Command
+      </button>
+
+      <p id="output" style="margin-top:20px"></p>
+    </div>
+  </section>
+
+  <section class="section" id="progress-section">
+    <h2>🎯 Your Learning Progress</h2>
+    <p id="progressText">0 of 5 lessons completed</p>
+
+    <div class="progress-bg">
+      <div id="progress"></div>
+    </div>
+
+    <div id="lessons"></div>
+
+    <button onclick="resetProgress()" style="margin-top:20px">
+      Reset Progress
+    </button>
+  </section>
+
+  <footer>
+    <p>Made with ❤️ by a future developer</p>
+    <p>Keep learning. Keep coding. Keep committing.</p>
+  </footer>
+
+  <script>
+    const commands = [
+      {
+        title: "1. Initialize",
+        command: "git init",
+        description: "Create a new local Git repository."
+      },
+      {
+        title: "2. Check Status",
+        command: "git status",
+        description: "See changed and untracked files."
+      },
+      {
+        title: "3. Stage Files",
+        command: "git add .",
+        description: "Stage changes in the current directory."
+      },
+      {
+        title: "4. Commit Changes",
+        command: 'git commit -m "My first commit"',
+        description: "Save a snapshot of staged changes."
+      },
+      {
+        title: "5. View History",
+        command: "git log --oneline",
+        description: "View a short history of commits."
+      },
+      {
+        title: "6. Push Code",
+        command: "git push",
+        description: "Send local commits to a configured remote."
+      }
+    ];
+
+    const commandCards = document.getElementById("commandCards");
+
+    commands.forEach(item => {
+      const card = document.createElement("div");
+      card.className = "card";
+
+      const heading = document.createElement("h3");
+      heading.textContent = item.title;
+
+      const description = document.createElement("p");
+      description.textContent = item.description;
+
+      const code = document.createElement("code");
+      code.textContent = item.command;
+
+      const button = document.createElement("button");
+      button.className = "small-btn";
+      button.textContent = "Copy Command";
+
+      button.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(item.command);
+          button.textContent = "Copied ✓";
+        } catch {
+          document.getElementById("commandInput").value = item.command;
+          button.textContent = "Added to Simulator";
+        }
+
+        setTimeout(() => {
+          button.textContent = "Copy Command";
+        }, 1500);
+      };
+
+      card.append(heading, description, code, button);
+      commandCards.appendChild(card);
+    });
+
+    const lessonNames = [
+      "Understand Git",
+      "Initialize a repository",
+      "Stage your files",
+      "Create your first commit",
+      "Learn push and pull"
+    ];
+
+    let completed = [];
+
+    function renderLessons() {
+      const container = document.getElementById("lessons");
+      container.replaceChildren();
+
+      lessonNames.forEach((name, index) => {
+        const label = document.createElement("label");
+        label.className = "lesson";
+
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.checked = completed.includes(index);
+
+        checkbox.onchange = () => {
+          if (checkbox.checked) {
+            completed.push(index);
+          } else {
+            completed = completed.filter(i => i !== index);
+          }
+          updateProgress();
+        };
+
+        const text = document.createElement("span");
+        text.textContent = name;
+
+        label.append(checkbox, text);
+        container.appendChild(label);
+      });
+
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const percent = completed.length / lessonNames.length * 100;
+
+      document.getElementById("progress").style.width =
+        percent + "%";
+
+      document.getElementById("progressText").textContent =
+        `${completed.length} of ${lessonNames.length} lessons completed`;
+    }
+
+    function resetProgress() {
+      completed = [];
+      renderLessons();
+    }
+
+    function runCommand() {
+      const input = document.getElementById("commandInput");
+      const output = document.getElementById("output");
+      const command = input.value.trim();
+
+      const responses = {
+        "git init":
+          "Initialized an empty Git repository (simulated)!",
+        "git status":
+          "On branch main. Nothing to commit, working tree clean.",
+        "git add .":
+          "Files staged successfully (simulated)!",
+        'git commit -m "My first commit"':
+          "[main abc1234] My first commit (simulated)!",
+        "git log --oneline":
+          "abc1234 (HEAD -> main) My first commit",
+        "git push":
+          "Simulated push. Configure a remote to push real code.",
+        "git pull":
+          "Simulated pull. Fetch and integrate remote changes."
+      };
+
+      output.textContent = responses[command] ||
+        "Command not in this simulator. Try git init, git status, git add ., git commit -m \"My first commit\", git log --oneline, git push, or git pull.";
+    }
+
+    function goTo(id) {
+      document.getElementById(id).scrollIntoView({
+        behavior: "smooth"
+      });
+    }
+
+    renderLessons();
+  </script>
+
+</body>
+</html>
